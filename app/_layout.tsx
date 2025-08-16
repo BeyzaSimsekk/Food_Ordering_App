@@ -12,10 +12,27 @@ export default function RootLayout() {
     "Quicksand-Light": require('../assets/fonts/Quicksand-Light.ttf'),
   });
 
+  const isAuthenticated = false; 
+  
+      
   useEffect(() => {
     if (error) console.error("Font yükleme hatası:", error);
     if(fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded, error]);
 
-  return <Stack screenOptions={{headerShown:false}} />;
+  if (!fontsLoaded) return null;
+
+  if (!isAuthenticated) {
+    return (
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)" />
+      </Stack>
+    );
+  }
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
 }

@@ -56,6 +56,7 @@ export default function Index() {
         <CartButton />
       </View>
       )}
+
       /> 
     </SafeAreaView>
   );

@@ -1,3 +1,4 @@
+import useAuthStore from '@/store/auth.store';
 import * as Sentry from '@sentry/react-native';
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
@@ -21,6 +22,9 @@ Sentry.init({
 });
 
 export default Sentry.wrap(function RootLayout() {
+
+  const {isLoading, fetchAuthenticatedUser} = useAuthStore();
+
   const [fontsLoaded, error] = useFonts({
     "Quicksand-Bold": require('../assets/fonts/Quicksand-Bold.ttf'),
     "Quicksand-Medium": require('../assets/fonts/Quicksand-Medium.ttf'),
@@ -29,29 +33,18 @@ export default Sentry.wrap(function RootLayout() {
     "Quicksand-Light": require('../assets/fonts/Quicksand-Light.ttf'),
   });
 
-  const isAuthenticated = false; 
 
-  //ZUSTAND KURULUMUNDA KALDIM**********STORE*******2.07.39*****************
-  
-      
   useEffect(() => {
     if (error) console.error("Font yükleme hatası:", error);
     if(fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded, error]);
 
-  if (!fontsLoaded) return null;
+  useEffect(() => {
+    fetchAuthenticatedUser()
+  }, [])
 
-  if (!isAuthenticated) {
-    return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
-      </Stack>
-    );
-  }
+  if (!fontsLoaded || isLoading) return null;
 
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-    </Stack>
-  );
+
+  return <Stack screenOptions={{ headerShown: false }} />;
 });

@@ -2,8 +2,6 @@ import { ID } from "react-native-appwrite";
 import { appwriteConfig, databases, storage } from "./appwrite";
 import dummyData from "./data";
 
-//SEED DATABASE'DE KALDIM**************2.43.58*******************ÖNCE KODU ANLAMA İLE BAŞLA İŞE!!!*********
-
 interface Category {
     name: string;
     description: string;
@@ -36,14 +34,14 @@ interface DummyData {
 // ensure dummyData has correct shape
 const data = dummyData as DummyData;
 
-async function clearAll(collectionId:string): Promise<void> {
+async function clearAll(collectionId: string): Promise<void> {
     const list = await databases.listDocuments(
         appwriteConfig.databaseId,
         collectionId
     );
 
     await Promise.all(
-        list.documents.map((doc)=>
+        list.documents.map((doc) =>
             databases.deleteDocument(appwriteConfig.databaseId, collectionId, doc.$id)
         )
     );
@@ -59,16 +57,16 @@ async function clearStorage(): Promise<void> {
     );
 }
 
-async function uploadImageToStorage(imageUrl:string) {
+async function uploadImageToStorage(imageUrl: string) {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
 
     const fileObj = {
         name: imageUrl.split("/").pop() || `file-${Date.now()}.jpg`,
-        type: blob.type,
+        type: 'image/png',
         size: blob.size,
         uri: imageUrl,
-    }
+    };
 
     const file = await storage.createFile(
         appwriteConfig.bucketId,
@@ -79,7 +77,7 @@ async function uploadImageToStorage(imageUrl:string) {
     return storage.getFileViewURL(appwriteConfig.bucketId, file.$id);
 }
 
-async function seed(): Promise<void>{
+async function seed(): Promise<void> {
     // 1. Clear all
     await clearAll(appwriteConfig.categoriesCollectionId);
     await clearAll(appwriteConfig.customizationsCollectionId);
@@ -153,7 +151,6 @@ async function seed(): Promise<void>{
     }
 
     console.log("✅ Seeding complete.");
-
 }
 
 export default seed;

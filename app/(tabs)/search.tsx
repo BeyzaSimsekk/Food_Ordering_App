@@ -3,8 +3,6 @@ import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
-//SEARCH SCREEN DE KALDIM***************2.49.42******************
-
 const Search = () => {
   return (
     <SafeAreaView>

@@ -7,6 +7,9 @@ import React, { useEffect } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+//MENU CARD TSX TE KALDIM GROKLA BERABER ÇALIŞ GPT MALA BAĞLADI İYİCE
+//*****************************3.07.23***************************** */
+
 const Search = () => {
 
   const {category, query} = useLocalSearchParams<{query: string, category: string }>()

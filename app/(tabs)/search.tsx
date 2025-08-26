@@ -1,16 +1,19 @@
 import CartButton from '@/components/CartButton'
+import MenuCard from '@/components/MenuCard'
 import { getCategories, getMenu } from '@/lib/appwrite'
+//import seed from '@/lib/seed'
 import useAppwrite from '@/lib/useAppwrite'
+import { MenuItem } from '@/type'
 import cn from "clsx"
 import { useLocalSearchParams } from 'expo-router'
 import React, { useEffect } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-//MENU CARD TSX TE KALDIM GROKLA BERABER ÇALIŞ GPT MALA BAĞLADI İYİCE
-//*****************************3.07.23***************************** */
 
 const Search = () => {
+
+  //const [isSeeding, setIsSeeding] = useState(false);
 
   const {category, query} = useLocalSearchParams<{query: string, category: string }>()
 
@@ -28,17 +31,35 @@ const Search = () => {
   },[category, query]) //parametreler değiştiğinde refetch yap
 
 
+  // const handleSeed = async () => {
+  //   try {
+  //     setIsSeeding(true);
+  //     console.log("🌱 Seeding başladı...");
+  //     await seed();
+  //     Alert.alert("Başarılı", "Database seeding tamamlandı!");
+  //     // Verileri yeniden yükle
+  //     refetch({category, query, limit: 6});
+  //   } catch (error) {
+  //     console.error("Seed error:", error);
+  //     Alert.alert("Hata", "Seeding sırasında bir hata oluştu.");
+  //   } finally {
+  //     setIsSeeding(false);
+  //   }
+  // };
+
+
   return (
     <SafeAreaView className='bg-white h-full'>
       <FlatList 
       data={data} 
       renderItem={({item, index})=>{
+        //console.log(data);
 
         const isFirstRightColItem = index % 2 === 0;
 
         return (
           <View className={cn('flex-1 max-w-[48%]', !isFirstRightColItem ? "mt-10" : "mt-0")}>
-            <Text>Menu Card</Text>
+            <MenuCard item={item as unknown as MenuItem}/>
           </View>
         )
       }}
@@ -58,6 +79,20 @@ const Search = () => {
             
             <CartButton/>
           </View>
+
+          {/* Seed Button
+          <TouchableOpacity
+            onPress={handleSeed}
+            disabled={isSeeding}
+            className={cn(
+              'bg-primary px-4 py-2 rounded-lg',
+              isSeeding && 'opacity-50'
+            )}
+          >
+            <Text className='text-white font-semibold text-center'>
+              {isSeeding ? '🌱 Seeding...' : '🌱 Seed Database'}
+            </Text>
+          </TouchableOpacity> */}
           <Text>Search Input</Text>
           <Text>Filter</Text>
         </View>

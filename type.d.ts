@@ -8,8 +8,7 @@ export interface MenuItem extends Models.Document {
     calories: number;
     protein: number;
     rating: number;
-    categories: string; // Category ID'si (ilişkisel)
-    // customizations burada yok çünkü ayrı bir collection'da tutuluyor
+    type: string;
 }
 
 export interface Category extends Models.Document {

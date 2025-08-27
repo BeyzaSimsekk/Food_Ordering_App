@@ -13,8 +13,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Search = () => {
 
-  //const [isSeeding, setIsSeeding] = useState(false);
-
   const {category, query} = useLocalSearchParams<{query: string, category: string }>()
 
   const {data, refetch, loading} = useAppwrite({
@@ -29,23 +27,6 @@ const Search = () => {
   useEffect(()=>{
     refetch({category, query, limit: 6});
   },[category, query]) //parametreler değiştiğinde refetch yap
-
-
-  // const handleSeed = async () => {
-  //   try {
-  //     setIsSeeding(true);
-  //     console.log("🌱 Seeding başladı...");
-  //     await seed();
-  //     Alert.alert("Başarılı", "Database seeding tamamlandı!");
-  //     // Verileri yeniden yükle
-  //     refetch({category, query, limit: 6});
-  //   } catch (error) {
-  //     console.error("Seed error:", error);
-  //     Alert.alert("Hata", "Seeding sırasında bir hata oluştu.");
-  //   } finally {
-  //     setIsSeeding(false);
-  //   }
-  // };
 
 
   return (
@@ -80,19 +61,8 @@ const Search = () => {
             <CartButton/>
           </View>
 
-          {/* Seed Button
-          <TouchableOpacity
-            onPress={handleSeed}
-            disabled={isSeeding}
-            className={cn(
-              'bg-primary px-4 py-2 rounded-lg',
-              isSeeding && 'opacity-50'
-            )}
-          >
-            <Text className='text-white font-semibold text-center'>
-              {isSeeding ? '🌱 Seeding...' : '🌱 Seed Database'}
-            </Text>
-          </TouchableOpacity> */}
+          {/* <Button title="Seed" onPress={()=>seed().catch((error)=>console.log("Failed to seed the database", error))} /> */}
+
           <Text>Search Input</Text>
           <Text>Filter</Text>
         </View>

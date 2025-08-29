@@ -151,3 +151,9 @@ JavaScript’te her ağ işlemi (mesela Appwrite çağrısı) zaman alır → Pr
 
 **_SEED.TS AMACI: başlangıç verilerini Appwrite’a dolduran otomatik script._**
 **_Bunu 1 kere çalıştırırsın, sonra Appwrite Console’da kategoriler/menüler hazır olur._**
+
+---
+
+## Debouncing
+
+`SearchBar.txt`'te uyguladık. Performansı artırmak için kullanıcı yazarken aramak yerine kullanıcı yazı yazmayı bırakır bırakmaz arama işleminde kullanılıyor.

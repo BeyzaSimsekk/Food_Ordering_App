@@ -11,7 +11,7 @@ const MenuCard = ({ item }: { item: MenuItem }) => {
       className="size-32 absolute -top-10" 
       resizeMode="contain"
       onError={(error) => console.log('Image error:', error.nativeEvent.error)}
-      onLoad={() => console.log('Image loaded:', item.name)}
+      //onLoad={() => console.log('Image loaded:', item.name)}
       />
       <Text className='text-center base-bold text-dark-100 mb-2' numberOfLines={1}>{item.name}</Text>
       <Text className='body-regular text-gray-200 mb-4'>From ${item.price}</Text>
